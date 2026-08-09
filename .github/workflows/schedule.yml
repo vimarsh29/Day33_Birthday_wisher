@@ -1,7 +1,7 @@
 name: Send Scheduled Email
 on:
   schedule:
-    - cron: '30 2 * * *'
+    - cron: '30 3 * * *'
   workflow_dispatch:
 jobs:
   send-email:
@@ -14,9 +14,9 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install dependencies
-run: pip install -r requirements.txt
-  - name: Run email scheduler
-env:
-MY_EMAIL: ${{ secrets.MY_EMAIL }}
-MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
-run: python main.py
+      run: pip install -r requirements.txt
+    - name: Run email scheduler
+      env:
+        MY_EMAIL: ${{ secrets.MY_EMAIL }}
+        MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+      run: python main.py
