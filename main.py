@@ -1,10 +1,14 @@
+from dotenv import load_dotenv
+import os
 import smtplib
 from datetime import datetime
 import pandas
 import random
 
-my_email= "vimkm2010@gmail.com"
-password = "pyxzuwkecjhxptqx"
+load_dotenv()
+
+my_email= os.getenv("MY_EMAIL")
+password = os.getenv("MY_PASSWORD")
 
 today=datetime.now()
 today_tuple=(today.month, today.day)
@@ -17,15 +21,16 @@ if today_tuple in data_dict:
     with open(file_path) as letter_file:
         letter_contents= letter_file.read()
         letter_contents=letter_contents.replace("[NAME]",birthday_person["name"])
-    with smtplib.SMTP("smtp.gmail.com") as connection:
+    with smtplib.SMTP("smtp.gmail.com", 587) as connection:
      connection.starttls()
      connection.login(user=my_email, password=password)
      connection.sendmail(
+
          from_addr=my_email,
          to_addrs=birthday_person["email"],
          msg=f"Subject: happy birthday \n\n{letter_contents}"
-     )
 
+     )
 
 
 
