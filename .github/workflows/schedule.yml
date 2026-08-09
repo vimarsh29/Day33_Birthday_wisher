@@ -8,21 +8,17 @@ workflow_dispatch:
 jobs:
 send-email:
 runs-on: ubuntu-latest
-
 steps:
 - name: Checkout code
 uses: actions/checkout@v3
-
 - name: Set up Python
 uses: actions/setup-python@v4
 with:
 python-version: '3.11'
-
 - name: Install dependencies
 run: pip install -r requirements.txt
-
 - name: Run email scheduler
 env:
-EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
-EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+EMAIL_ADDRESS: ${{ secrets.MY_EMAIL }}
+EMAIL_PASSWORD: ${{ secrets.MY_PASSWORD }}
 run: python main.py
